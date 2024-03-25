@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
@@ -16,8 +15,6 @@ import { RouterLink } from '../../routes/components';
 import { useResponsive } from '../../hooks/use-responsive';
 
 import { account } from '../../_mock/account';
-
-import Logo from '../../components/logo';
 import Scrollbar from '../../components/scrollbar';
 
 import { NAV } from './config-layout';
@@ -71,29 +68,19 @@ export default function Nav({ openNav, onCloseNav }) {
   );
 
   const renderUpgrade = (
-    <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
+    <Box sx={{ px: 2.5, pb: 6, mt: 10 }}>
       <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-        <Box
-          component="img"
-          src="/assets/illustrations/illustration_avatar.png"
-          sx={{ width: 100, position: 'absolute', top: -50 }}
-        />
-
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h6">Get more?</Typography>
-
-          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
-            From only $69
-          </Typography>
-        </Box>
 
         <Button
           href="https://material-ui.com/store/items/minimal-dashboard/"
           target="_blank"
           variant="contained"
           color="inherit"
+          sx={{
+            width:"100%"
+          }}
         >
-          Upgrade to Pro
+          Logout
         </Button>
       </Stack>
     </Box>
@@ -110,8 +97,6 @@ export default function Nav({ openNav, onCloseNav }) {
         },
       }}
     >
-      <Logo sx={{ mt: 3, ml: 4 }} />
-
       {renderAccount}
 
       {renderMenu}
@@ -127,6 +112,7 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
+        background:'#F9FAFB'
       }}
     >
       {upLg ? (

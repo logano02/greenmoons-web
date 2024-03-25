@@ -4,7 +4,7 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from '../layouts/dashboard';
 
 export const IndexPage = lazy(() => import('../pages/main'));
-export const ProductsPage = lazy(() => import('../pages/products'));
+export const MoviesFev = lazy(() => import('../pages/movies-fev'));
 export const LoginPage = lazy(() => import('../pages/login'));
 export const Page404 = lazy(() => import('../pages/page-not-found'));
 
@@ -22,7 +22,7 @@ export default function Router() {
       ),
       children: [
         { element: <IndexPage />, index: true },
-        { path: 'products', element: <ProductsPage /> },
+        { path: 'fevorotes', element: <MoviesFev /> },
       ],
     },
     {
