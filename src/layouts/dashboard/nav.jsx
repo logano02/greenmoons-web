@@ -1,31 +1,31 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import { alpha } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import ListItemButton from '@mui/material/ListItemButton';
-
-import { usePathname } from '../../routes/hooks';
-import { RouterLink } from '../../routes/components';
-
-import { useResponsive } from '../../hooks/use-responsive';
-
-import { account } from '../../_mock/account';
-import Scrollbar from '../../components/scrollbar';
-
-import { NAV } from './config-layout';
-import navConfig from './config-navigation';
-
-// ----------------------------------------------------------------------
-
+import { useEffect } from "react";
+import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import { alpha } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import ListItemButton from "@mui/material/ListItemButton";
+import { usePathname } from "../../routes/hooks";
+import { RouterLink } from "../../routes/components";
+import { useResponsive } from "../../hooks/use-responsive";
+import { account } from "../../_mock/account";
+import Scrollbar from "../../components/scrollbar";
+import { NAV } from "./config-layout";
+import navConfig from "./config-navigation";
+import { useNavigate } from "react-router-dom";
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
 
-  const upLg = useResponsive('up', 'lg');
+  const upLg = useResponsive("up", "lg");
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    //remove token and logout
+    navigate("/login"); // Navigate to the `/xxx` path
+  };
 
   useEffect(() => {
     if (openNav) {
@@ -41,9 +41,9 @@ export default function Nav({ openNav, onCloseNav }) {
         mx: 2.5,
         py: 2,
         px: 2.5,
-        display: 'flex',
+        display: "flex",
         borderRadius: 1.5,
-        alignItems: 'center',
+        alignItems: "center",
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
@@ -52,7 +52,7 @@ export default function Nav({ openNav, onCloseNav }) {
       <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">{account.displayName}</Typography>
 
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
           {account.role}
         </Typography>
       </Box>
@@ -69,15 +69,17 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const renderUpgrade = (
     <Box sx={{ px: 2.5, pb: 6, mt: 10 }}>
-      <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-
+      <Stack
+        alignItems="center"
+        spacing={3}
+        sx={{ pt: 5, borderRadius: 2, position: "relative" }}
+      >
         <Button
-          href="https://material-ui.com/store/items/minimal-dashboard/"
-          target="_blank"
+          onClick={handleClick}
           variant="contained"
           color="inherit"
           sx={{
-            width:"100%"
+            width: "100%",
           }}
         >
           Logout
@@ -90,10 +92,10 @@ export default function Nav({ openNav, onCloseNav }) {
     <Scrollbar
       sx={{
         height: 1,
-        '& .simplebar-content': {
+        "& .simplebar-content": {
           height: 1,
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
         },
       }}
     >
@@ -112,14 +114,14 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
-        background:'#F9FAFB'
+        background: "#F9FAFB",
       }}
     >
       {upLg ? (
         <Box
           sx={{
             height: 1,
-            position: 'fixed',
+            position: "fixed",
             width: NAV.WIDTH,
             borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
           }}
@@ -162,15 +164,15 @@ function NavItem({ item }) {
       sx={{
         minHeight: 44,
         borderRadius: 0.75,
-        typography: 'body2',
-        color: 'text.secondary',
-        textTransform: 'capitalize',
-        fontWeight: 'fontWeightMedium',
+        typography: "body2",
+        color: "text.secondary",
+        textTransform: "capitalize",
+        fontWeight: "fontWeightMedium",
         ...(active && {
-          color: 'primary.main',
-          fontWeight: 'fontWeightSemiBold',
+          color: "primary.main",
+          fontWeight: "fontWeightSemiBold",
           bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
-          '&:hover': {
+          "&:hover": {
             bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
           },
         }),
