@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { getMovies } from "../../../api";
-import { getMovie } from "../../../store/moviesSlice";
+import { getFevMoviesList } from "../../../store/moviesSlice";
 import { useDispatch } from "react-redux";
 
-export function useGetMovies() {
+export function useGetFev() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,7 +12,13 @@ export function useGetMovies() {
     const fetchData = async () => {
       try {
         const response = await getMovies();
-        dispatch(getMovie({ data: response.movies }));
+        const idSet = new Set(
+          localStorage.getItem("fevoriteList")
+            ? JSON.parse(localStorage.getItem("fevoriteList"))
+            : []
+        );
+        const result = response.movies.filter((item) => idSet.has(item.id));
+        dispatch(getFevMoviesList({ data: result }));
       } catch (error) {
         setError(error);
       } finally {

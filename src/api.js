@@ -5,7 +5,6 @@ export const getMovies = async () => {
     const response = await axios.get('https://www.majorcineplex.com/apis/get_movie_avaiable');
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

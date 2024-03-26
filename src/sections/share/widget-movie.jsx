@@ -1,15 +1,24 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Chip, Box, Link, Card, Stack, Typography } from "@mui/material";
+import { Chip, Box, Card, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
 import { fDate } from "../../utils/format-time";
 import { Button } from "@mui/material";
+import { saveMovieId, saveToFev } from "../../store/moviesSlice";
 
-export default function WingetMovie({ movie }) {
-  const [fev, setFev] = useState(false);
+import { useDispatch, useSelector } from "react-redux";
+
+export default function WingetMovie({ movie, setOpen, useFevIcon = false }) {
+  const dispatch = useDispatch();
+  const isFev = useSelector((state) => state.movies.fevList);
+  const [fev, setFev] = useState(isFev.some((item) => item === movie.id));
   const [isHovered, setIsHovered] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+    dispatch(saveMovieId({ movie: movie }));
+  };
 
-  const renderStatus = (
+  const renderFevIcon = (
     <Iconify
       icon="mdi:favorite"
       sx={{
@@ -25,6 +34,7 @@ export default function WingetMovie({ movie }) {
       }}
       onClick={() => {
         setFev(!fev);
+        dispatch(saveToFev({ movieId: movie.id }));
       }}
     />
   );
@@ -58,7 +68,11 @@ export default function WingetMovie({ movie }) {
               filter: "brightness(1)",
             }}
           >
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClickOpen}
+            >
               ดูรายละเอียดเพิ่มเติม
             </Button>
           </Box>
@@ -75,17 +89,27 @@ export default function WingetMovie({ movie }) {
       <Typography underline="hover" variant="subtitle2" mb={1}>
         {fDate(movie.release_date)}
       </Typography>
-      <Stack direction="row" spacing={1}>
-        <Chip label={movie.genre} size="small" color="default" />
-        <Chip label={`${movie.duration} นาที`} size="small" color="default" />
+      <Stack direction="row" spacing={1} flexWrap={"wrap"}>
+        <Chip
+          label={movie.genre}
+          size="small"
+          color="default"
+          style={{ marginBottom: "8px" }}
+        />
+        <Chip
+          label={`${movie.duration} นาที`}
+          size="small"
+          color="default"
+          style={{ marginBottom: "8px" }}
+        />
       </Stack>
     </Box>
   );
 
   return (
     <Card>
-      <Box sx={{ position: "relative" }} className={"movie-card"}>
-        {renderStatus}
+      <Box sx={{ position: "relative" }}>
+        {!useFevIcon && renderFevIcon}
         {renderImg}
       </Box>
       <Stack spacing={2} sx={{ p: 2 }}>

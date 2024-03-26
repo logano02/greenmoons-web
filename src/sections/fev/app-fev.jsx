@@ -4,22 +4,22 @@ import { Typography } from "@mui/material";
 import React from "react";
 
 import WidgetMovie from "../share/widget-movie";
-import { useGetMovies } from "./hooks";
+import { useGetFev } from "./hooks";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import DialogDetail from "../share/dialog-detail";
 
 import { useSelector } from "react-redux";
 
-export default function AppMain() {
-  const { loading, error } = useGetMovies();
+export default function AppFev() {
+  const { loading, error } = useGetFev();
   const [open, setOpen] = React.useState(false);
-  const moviesList = useSelector((state) => state.movies.moviesList);
+  const fevMoviesList = useSelector((state) => state.movies.fevMoviesList);
   if (loading) {
     return (
       <Box sx={{ display: "flex" }}>
         <Typography variant="h6" sx={{ mr: 5, ml: 5 }}>
-          LOADING Movies....
+          LOADING My Fevorite Movies.....
         </Typography>
         <CircularProgress />
       </Box>
@@ -34,14 +34,14 @@ export default function AppMain() {
     <Container maxWidth="xl">
       <Box>
         <Typography variant="h4" sx={{ mb: 5 }} display="flex">
-          Movies Finder
+          My Fevorite Movies.
         </Typography>
         <DialogDetail open={open} setOpen={setOpen} />
       </Box>
       <Grid container spacing={3}>
-        {moviesList.map((movie, index) => (
+        {fevMoviesList.map((movie, index) => (
           <Grid key={index} xs={12} sm={6} md={3}>
-            <WidgetMovie movie={movie} setOpen={setOpen} />
+            <WidgetMovie movie={movie} setOpen={setOpen} useFevIcon={true} />
           </Grid>
         ))}
       </Grid>

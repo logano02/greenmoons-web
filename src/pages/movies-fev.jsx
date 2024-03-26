@@ -1,14 +1,10 @@
-import { Helmet } from 'react-helmet-async';
-// ----------------------------------------------------------------------
+import { Box } from "@mui/material";
 
-export default function MoviesFev() {
+import { AppFev } from "../sections/fev";
+export default function AppPage() {
   return (
-    <>
-      <Helmet>
-        <title> Products | Minimal UI </title>
-      </Helmet>
-
-      <></>
-    </>
+    <Box>
+      <AppFev />
+    </Box>
   );
 }
