@@ -38,6 +38,9 @@ dependencies:
   js-cookie:
     specifier: ^3.0.5
     version: 3.0.5
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   numeral:
     specifier: ^2.0.6
     version: 2.0.6
