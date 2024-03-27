@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { getMovies } from "../../../api";
+import { getMovies, getUser } from "../../../api";
 import { getMovie } from "../../../store/moviesSlice";
+import { saveUser } from "../../../store/userSlice";
 import { useDispatch } from "react-redux";
 
 export function useGetMovies() {
@@ -11,8 +12,9 @@ export function useGetMovies() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getMovies();
+        const [response, resUser] = await Promise.all([getMovies(), getUser()]);
         dispatch(getMovie({ data: response.movies }));
+        dispatch(saveUser({ data: resUser.data }));
       } catch (error) {
         setError(error);
       } finally {

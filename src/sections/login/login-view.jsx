@@ -34,9 +34,9 @@ export default function LoginView() {
       const token = await login(email, password);
       Cookies.set("token", token, { expires: 1, secure: true });
       router.push("/");
-      setLoading(false);
     } catch (error) {
       setErrorMessage(error.message);
+    } finally {
       setLoading(false);
     }
   };
