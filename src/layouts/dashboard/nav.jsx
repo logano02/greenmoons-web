@@ -23,15 +23,14 @@ export default function Nav({ openNav, onCloseNav }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    //remove token and logout
-    navigate("/login"); // Navigate to the `/xxx` path
+    Cookies.remove("token");
+    navigate("/login");
   };
 
   useEffect(() => {
     if (openNav) {
       onCloseNav();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderAccount = (
