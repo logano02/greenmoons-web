@@ -16,6 +16,7 @@ import Scrollbar from "../../components/scrollbar";
 import { NAV } from "./config-layout";
 import navConfig from "./config-navigation";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
 
